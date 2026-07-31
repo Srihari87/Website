@@ -7,95 +7,145 @@ const NAV_LINKS = ["About", "Skills", "Experience", "Projects", "Contact"];
 const SKILLS = [
   { name: "C / C++", icon: "devicon-cplusplus-plain colored" },
   { name: "Python", icon: "devicon-python-plain colored" },
+  { name: "Go", icon: "devicon-go-original-wordmark colored" },
+  { name: "Swift", icon: "devicon-swift-plain colored" },
+  { name: "TypeScript", icon: "devicon-typescript-plain colored" },
   { name: "JavaScript", icon: "devicon-javascript-plain colored" },
   { name: "Java", icon: "devicon-java-plain colored" },
-  { name: "Swift", icon: "devicon-swift-plain colored" },
-  { name: "SQL", icon: "devicon-mysql-plain colored" },
-  { name: "Verilog", icon: "devicon-embeddedc-plain colored" },
+  { name: "SQL", icon: "devicon-postgresql-plain colored" },
+  { name: "SystemVerilog", icon: "devicon-embeddedc-plain colored" },
+  { name: "PyTorch", icon: "devicon-pytorch-original colored" },
+  { name: "CUDA", icon: "devicon-nvidia-plain colored" },
+  { name: "Kubernetes", icon: "devicon-kubernetes-plain colored" },
+  { name: "Docker", icon: "devicon-docker-plain colored" },
+  { name: "Google Cloud", icon: "devicon-googlecloud-plain colored" },
+  { name: "Next.js", icon: "devicon-nextjs-original colored" },
   { name: "React", icon: "devicon-react-original colored" },
   { name: "Node.js", icon: "devicon-nodejs-plain colored" },
-  { name: "Django", icon: "devicon-django-plain colored" },
-  { name: "PyTorch", icon: "devicon-pytorch-original colored" },
-  { name: "Docker", icon: "devicon-docker-plain colored" },
+  { name: "Supabase", icon: "devicon-supabase-plain colored" },
+  { name: "Spark", icon: "devicon-apachespark-original colored" },
+  { name: "Jenkins", icon: "devicon-jenkins-plain colored" },
   { name: "Git", icon: "devicon-git-plain colored" },
   { name: "Linux", icon: "devicon-linux-plain colored" },
-  { name: "Go", icon: "devicon-go-original-wordmark colored" },
-  { name: "Firebase", icon: "devicon-firebase-plain colored" },
-  { name: "GitHub Actions", icon: "devicon-githubactions-plain colored" },
-  { name: "TensorFlow", icon: "devicon-tensorflow-original colored" },
 ];
 
+// Personal projects carry a repo link. Work built inside a role is marked
+// proprietary instead — the code isn't mine to publish.
 const PROJECTS = [
   {
-    title: "Distributed API Gateway & Rate Limiter",
-    desc: "Cloud-ready Go microservice acting as an API gateway with token-based rate limiting, sustaining 5k+ req/min at sub-10ms latency. Reverse proxy routing with PostgreSQL logging.",
-    tags: ["Go", "Linux", "Docker", "PostgreSQL"],
-    year: "2025",
+    title: "Kairo",
+    blurb: "Step-duel iOS app",
+    desc: "Full-stack SwiftUI iOS app with 400+ signups. Firebase Auth, JWT and Firestore real-time sync, cosine-similarity matching over HealthKit biometrics, and a smart-contract betting engine settling 30% faster via HealthKit-verified triggers.",
+    tags: ["SwiftUI", "HealthKit", "Firebase", "Firestore", "Solidity"],
+    year: "2026",
     status: "In Progress",
-    github: "https://github.com/srihari",
+    shot: "/shots/kairo-feed.png",
+    repo: "https://github.com/Srihari87/Kairo",
+    repoPrivate: true,
   },
   {
-    title: "Kairo — Self Improvement App",
-    desc: "SwiftUI iOS app with Firebase/Firestore, Apple HealthKit integration ingesting 10+ biometric metrics into real-time dashboard analytics. MVVM backend with async data pipelines.",
-    tags: ["Swift", "SwiftUI", "Firebase", "HealthKit"],
+    title: "BoilerSwap",
+    blurb: "Campus marketplace PWA",
+    desc: "Full-stack PWA marketplace with 500+ users, @purdue.edu auth, OAuth and JWT sessions. Route optimization recommends optimal meeting locations, cutting coordination by 40%. Supabase Realtime chat with RLS-enforced encryption.",
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Supabase"],
     year: "2025",
-    status: "In Progress",
-    github: "https://github.com/srihari",
+    status: "Live",
+    shot: null,
+    repo: "https://github.com/Srihari87/boilerswap",
+    repoPrivate: true,
+    live: "https://boilerswap.xyz",
   },
   {
-    title: "CI/CD Automation & Infrastructure Toolkit",
-    desc: "Built CI/CD pipelines cutting deployment time by 50%. Bash/Shell provisioning and testing workflows reducing release errors by 30%. Deployed on Azure with GitHub Actions.",
-    tags: ["Python", "Docker", "GitHub Actions", "Linux"],
-    year: "2024",
+    title: "Healthcare Data Platform",
+    org: "Intellicent",
+    blurb: "GCP pipeline at millions-of-records scale",
+    desc: "GCP pipeline with LLM extraction and GPU-accelerated parsing across millions of healthcare records. Go services and sub-100ms REST APIs on GKE, plus monitoring dashboards that surfaced data-quality issues and improved pricing model accuracy by 15%.",
+    tags: ["Go", "GCP", "Kubernetes", "LLM"],
+    year: "2026",
+    status: "In Progress",
+    proprietary: true,
+  },
+  {
+    title: "Moderation Red-Teaming Framework",
+    org: "Signal Found",
+    blurb: "RAG over FAISS + autonomous browser fleet",
+    desc: "Scalable RAG framework over a FAISS vector DB generating 15K+ test cases, uncovering 9 previously unknown failure cases in content-moderation systems. 200+ uniquely-fingerprinted sandboxed browsers on one VPS acting in tandem as a single agent.",
+    tags: ["Python", "FAISS", "RAG", "Automation"],
+    year: "2026",
     status: "Completed",
-    github: "https://github.com/srihari",
+    proprietary: true,
   },
   {
-    title: "GPU-Accelerated Secure ML Inference",
-    desc: "Privacy-preserving ML inference framework at CERIAS Lab. WRN28-10 on CIFAR-10 in Dockerized PyTorch achieving 10% accuracy improvement with CUDA-based parallel pipelines.",
-    tags: ["Python", "PyTorch", "CUDA", "Docker"],
+    title: "Unified Inventory Platform",
+    org: "Caterpillar",
+    blurb: "7 legacy apps → one cloud platform",
+    desc: "Re-architected 7 inventory applications into a unified cloud platform, cutting data retrieval time by 50%. Low-latency REST services for near real-time sync, plus an LLM assistant across all 7 legacy systems that cut manual lookup time by 70%.",
+    tags: ["Cloud", "REST APIs", "SQL", "LLM"],
+    year: "2025",
+    status: "Completed",
+    proprietary: true,
+  },
+  {
+    title: "Adversarial Robustness Benchmark",
+    org: "CERIAS Security Lab",
+    blurb: "Standardized robustness evaluation",
+    desc: "Scalable PyTorch infrastructure for standardized adversarial-robustness evaluation across model families. Implemented and benchmarked FGSM and PGD attacks with defenses, quantifying the accuracy–robustness tradeoff on distributed Spark/Kubernetes/Slurm pipelines.",
+    tags: ["PyTorch", "Spark", "Kubernetes", "Slurm"],
     year: "2025",
     status: "In Progress",
-    github: "https://github.com/srihari",
+    proprietary: true,
   },
 ];
 
 const EXPERIENCE = [
   {
+    company: "Intellicent",
+    role: "Software Engineer Intern",
+    location: "Seattle, WA",
+    period: "May 2026 – Present",
+    bullets: [
+      "Built a GCP pipeline with LLM extraction and GPU-accelerated parsing for millions of healthcare records.",
+      "Developed Go services and sub-100ms REST APIs on Google Kubernetes Engine for healthcare batch pipelines.",
+      "Designed GCP monitoring dashboards that surfaced data quality issues, improving pricing model accuracy by 15%.",
+      "Led external data platform pipelines end-to-end, driving requirements in bi-weekly syncs with Boston Scientific leadership to align with pricing strategy.",
+    ],
+    tags: ["Go", "GCP", "Kubernetes", "LLM"],
+  },
+  {
+    company: "Signal Found — Stealth Startup",
+    role: "Machine Learning Engineering Intern",
+    location: "San Francisco, CA",
+    period: "Jan 2026 – May 2026",
+    bullets: [
+      "Built a scalable RAG framework over a FAISS vector DB, generating 15K+ test cases and uncovering 9 previously unknown failure cases in content moderation systems.",
+      "Engineered 200+ uniquely-fingerprinted, sandboxed browser instances on a single VPS, coordinated to operate in tandem as one autonomous agent.",
+      "Implemented anti-fingerprinting, per-browser sandboxing and session isolation, sustaining 95%+ evasion at scale.",
+    ],
+    tags: ["Python", "FAISS", "RAG", "Distributed Systems"],
+  },
+  {
     company: "Caterpillar",
     role: "Undergraduate Software Engineer",
     location: "West Lafayette, IN",
-    period: "Aug 2025 – Present",
+    period: "Aug 2025 – Jan 2026",
     bullets: [
-      "Developed a production LLM-powered dashboard using REST APIs, Django, React & LangChain for dynamic supplier analytics.",
-      "Built and optimized SQL-based ETL pipelines, designing relational data models to power internal dashboards and AI-driven workflows, improving query performance by 30%.",
-      "Optimized supplier inspection processes (Agile), reducing time by 20–30% and saving $100k+ in work hours.",
+      "Re-architected 7 inventory applications into a unified cloud platform, cutting data retrieval time by 50%.",
+      "Built low-latency services and REST APIs enabling near real-time inventory sync across enterprise systems.",
+      "Built an LLM-powered assistant querying inventory status, defects and delivery schedules across 7 legacy systems, cutting manual lookup time by 70%.",
     ],
-    tags: ["Django", "React", "LangChain", "SQL"],
+    tags: ["Cloud", "REST APIs", "SQL", "LLM"],
   },
   {
-    company: "CERIAS Lab — Prof. Zahra Ghodsi",
-    role: "Undergraduate ML Researcher",
+    company: "CERIAS Security Lab — Prof. Zahra Ghodsi",
+    role: "Undergraduate Machine Learning Researcher",
     location: "West Lafayette, IN",
     period: "Aug 2025 – Present",
     bullets: [
-      "Developing a GPU-accelerated framework for secure ML inference with privacy-preserving data protection.",
-      "Ran Dockerized PyTorch experiments with WRN28-10 on CIFAR-10, achieving 10% accuracy improvement.",
-      "Integrated ML inference pipelines with CUDA-based environments to improve efficiency and parallel performance.",
+      "Built scalable PyTorch infrastructure for standardized evaluation of adversarial robustness across ML models.",
+      "Implemented and benchmarked adversarial attacks (FGSM, PGD) and defenses, quantifying the accuracy–robustness tradeoff across model families.",
+      "Engineered distributed ML pipelines with Spark, Kubernetes and Slurm, optimizing Linux I/O performance.",
     ],
-    tags: ["PyTorch", "CUDA", "Docker", "Python"],
-  },
-  {
-    company: "Kairo — Self Improvement App",
-    role: "Co-Founder & Full Stack Engineer",
-    location: "Seattle, WA",
-    period: "Oct 2025 – Present",
-    bullets: [
-      "Built a SwiftUI iOS app integrating Firebase and Firestore, supporting login and real-time data sync.",
-      "Connected Apple HealthKit to ingest 10+ activity and biometric metrics into real-time dashboard analytics.",
-      "Designed a modular MVVM backend with async data pipelines, reducing feature integration time by ~30%.",
-    ],
-    tags: ["Swift", "SwiftUI", "Firebase", "HealthKit"],
+    tags: ["PyTorch", "Spark", "Kubernetes", "Slurm"],
   },
   {
     company: "Embedded Systems @ Purdue",
@@ -110,34 +160,164 @@ const EXPERIENCE = [
     tags: ["C", "Python", "FPGA", "Embedded"],
   },
   {
-    company: "HELM BIM",
-    role: "Software Engineer Intern",
-    location: "Philadelphia, PA",
-    period: "Jun 2025 – Present",
-    bullets: [
-      "Designed and implemented REST API integrations with OAuth authentication to automate document workflows.",
-      "Built Node.js backend scripts for document generation, data validation, and asynchronous job orchestration.",
-    ],
-    tags: ["Node.js", "REST APIs", "OAuth"],
-  },
-  {
     company: "System-on-Chip Lab — Prof. M.C. Johnson",
     role: "Undergraduate Researcher",
     location: "West Lafayette, IN",
     period: "Dec 2024 – May 2025",
     bullets: [
       "Designed and verified digital circuits (FSMs, memory copiers) and explored RISC-V CPU architecture.",
-      "Researched SRAM design stability using Verilog simulations and achieved 15% improvement in test designs.",
+      "Researched SRAM design stability using Verilog simulations, achieving 15% improvement in test designs.",
     ],
-    tags: ["Verilog", "RISC-V", "SystemVerilog"],
+    tags: ["SystemVerilog", "RISC-V", "Digital Design"],
   },
 ];
+
+const STATUS_STYLE = {
+  Completed:     { bg: "rgba(74,222,128,0.08)",  fg: "#4ade80", bd: "rgba(74,222,128,0.2)" },
+  Live:          { bg: "rgba(56,189,248,0.08)",  fg: "#38bdf8", bd: "rgba(56,189,248,0.2)" },
+  "In Progress": { bg: "rgba(251,191,36,0.08)",  fg: "#fbbf24", bd: "rgba(251,191,36,0.2)" },
+};
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
 const fadeUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 32 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.75, delay, ease: [0.22, 1, 0.36, 1] } },
 });
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+/// Reveal-on-scroll, except every section starts at opacity 0 — so if reduced
+/// motion is on (or IntersectionObserver never fires) the whole page would read
+/// as blank. Show it immediately in that case.
+function useReveal(ref, margin = "-80px") {
+  const inView = useInView(ref, { once: true, margin });
+  return inView || prefersReducedMotion() ? "visible" : "hidden";
+}
+
+function GitHubMark({ size = 16 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+    </svg>
+  );
+}
+
+// Renders a real screenshot when one exists, otherwise a procedural placeholder
+// keyed off the title — so proprietary work still gets a visual without me
+// inventing a fake screenshot of it. When a repo exists the whole visual is a
+// link, with a GitHub mark badged on it so it reads as pressable.
+function ProjectShot({ src, title, org, locked, seed = 0, href }) {
+  const frame = {
+    position: "relative",
+    aspectRatio: "16 / 9",
+    borderRadius: 10,
+    overflow: "hidden",
+    marginBottom: 20,
+    border: "1px solid rgba(255,255,255,0.07)",
+    background: "#0b0c14",
+  };
+
+  const inner = renderInner();
+
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer"
+        aria-label={`${title} — open repository on GitHub`}
+        style={{ ...frame, display: "block", textDecoration: "none", cursor: "pointer", transition: "border-color 0.22s, transform 0.22s" }}
+        onMouseEnter={e => {
+          e.currentTarget.style.borderColor = "rgba(99,102,241,0.45)";
+          e.currentTarget.style.transform = "translateY(-2px)";
+          const b = e.currentTarget.querySelector("[data-gh-badge]");
+          if (b) { b.style.background = "#6366f1"; b.style.color = "#fff"; }
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)";
+          e.currentTarget.style.transform = "translateY(0)";
+          const b = e.currentTarget.querySelector("[data-gh-badge]");
+          if (b) { b.style.background = "rgba(9,10,16,0.78)"; b.style.color = "rgba(255,255,255,0.75)"; }
+        }}>
+        {inner}
+        <span data-gh-badge style={{
+          position: "absolute", bottom: 10, right: 10,
+          display: "inline-flex", alignItems: "center", gap: 7,
+          padding: "7px 12px", borderRadius: 100,
+          background: "rgba(9,10,16,0.78)", color: "rgba(255,255,255,0.75)",
+          border: "1px solid rgba(255,255,255,0.12)", backdropFilter: "blur(6px)",
+          transition: "background 0.22s, color 0.22s",
+        }}>
+          <GitHubMark size={14} />
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: "0.03em" }}>
+            VIEW REPO
+          </span>
+        </span>
+      </a>
+    );
+  }
+
+  return <div style={frame}>{inner}</div>;
+
+  // Returns only the contents — the frame is supplied by the wrapper above so
+  // the same visual works as both a link and a plain div.
+  function renderInner() {
+    if (src) {
+      // The site deploys under base '/Website/', so a bare '/shots/…' path
+      // would resolve to the domain root and 404. Phone screenshots are tall,
+      // so the crop is biased down off the status bar.
+      const resolved = src.startsWith("/")
+        ? `${import.meta.env.BASE_URL}${src.slice(1)}`
+        : src;
+      return (
+        <img src={resolved} alt={`${title} screenshot`} loading="lazy"
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 26%", display: "block" }} />
+      );
+    }
+
+    const hue = 228 + ((seed * 34) % 96);
+    const initials = (org || title).split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase();
+
+    return (
+      <div style={{
+        position: "absolute", inset: 0,
+        background: `linear-gradient(135deg, hsl(${hue} 58% 20%) 0%, hsl(${hue + 26} 52% 9%) 100%)`,
+        display: "flex", alignItems: "center", justifyContent: "center",
+      }}>
+        {/* faint blueprint grid */}
+        <div style={{
+          position: "absolute", inset: 0,
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
+          backgroundSize: "26px 26px",
+          maskImage: "radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%)",
+        }} />
+        <span style={{
+          fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 54, fontWeight: 800,
+          color: "rgba(255,255,255,0.14)", letterSpacing: "-0.04em", userSelect: "none",
+        }}>{initials}</span>
+
+        {locked && (
+          <div style={{
+            position: "absolute", bottom: 10, right: 10,
+            display: "inline-flex", alignItems: "center", gap: 6,
+            padding: "5px 10px", borderRadius: 100,
+            background: "rgba(9,10,16,0.72)", border: "1px solid rgba(255,255,255,0.1)",
+            backdropFilter: "blur(6px)",
+          }}>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="2.5">
+              <rect x="4" y="11" width="16" height="10" rx="2" />
+              <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+            </svg>
+            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 600, color: "rgba(255,255,255,0.55)", letterSpacing: "0.04em" }}>
+              NO PUBLIC DEMO
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
 
 function useTypewriter(words, speed = 75, pause = 2000) {
   const [idx, setIdx] = useState(0);
@@ -449,15 +629,15 @@ function Hero() {
 // ── ABOUT ─────────────────────────────────────────────────────────────────────
 function About() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const reveal = useReveal(ref, "-100px");
   return (
     <section id="about" ref={ref} style={{ padding: "130px 6vw", maxWidth: 1100, margin: "0 auto" }}>
-      <motion.div variants={fadeUp()} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ marginBottom: 56 }}>
+      <motion.div variants={fadeUp()} initial="hidden" animate={reveal} style={{ marginBottom: 56 }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "#818cf8", letterSpacing: "0.12em", marginBottom: 14, textTransform: "uppercase", fontWeight: 600 }}>About Me</p>
         <h2 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "clamp(30px, 4.5vw, 52px)", fontWeight: 800, color: "#fff", margin: 0, lineHeight: 1.15, letterSpacing: "-0.025em" }}>Building from the ground up</h2>
       </motion.div>
       <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 64, alignItems: "start" }}>
-        <motion.div variants={fadeUp(0.15)} initial="hidden" animate={inView ? "visible" : "hidden"}>
+        <motion.div variants={fadeUp(0.15)} initial="hidden" animate={reveal}>
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "rgba(255,255,255,0.52)", lineHeight: 1.85, marginBottom: 22 }}>
             I'm a Computer Engineering student who loves understanding how systems work at every layer — from circuits and operating systems to scalable web architecture. That foundation shapes how I think about software.
           </p>
@@ -465,13 +645,13 @@ function About() {
             Outside of coursework, I'm always building: personal projects, open source contributions, and exploring new tools. My goal is a software engineering role where I can work on products that are both technically challenging and genuinely useful.
           </p>
         </motion.div>
-        <motion.div variants={fadeUp(0.28)} initial="hidden" animate={inView ? "visible" : "hidden"}
+        <motion.div variants={fadeUp(0.28)} initial="hidden" animate={reveal}
           style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, padding: "28px 32px" }}>
           {[
             { label: "University", value: "Purdue University" },
-            { label: "Degree", value: "B.S. Computer Engineering" },
-            { label: "Year", value: "Junior — Class of 2027" },
-            { label: "Focus", value: "Software Engineering & ML" },
+            { label: "Degree", value: "B.S. Computer Engineering, Minor in Mathematics" },
+            { label: "Graduating", value: "December 2027" },
+            { label: "Focus", value: "Distributed Systems, Cloud & ML" },
             { label: "Status", value: "Open to opportunities 🚀" },
           ].map((item, i) => (
             <div key={item.label} style={{ display: "flex", gap: 20, padding: "13px 0", borderBottom: i < 4 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
@@ -488,12 +668,12 @@ function About() {
 // ── SKILLS ────────────────────────────────────────────────────────────────────
 function Skills() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const reveal = useReveal(ref);
 
   return (
     <section id="skills" ref={ref} style={{ padding: "130px 6vw", background: "rgba(255,255,255,0.015)", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <motion.div variants={fadeUp()} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ marginBottom: 56 }}>
+        <motion.div variants={fadeUp()} initial="hidden" animate={reveal} style={{ marginBottom: 56 }}>
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "#818cf8", letterSpacing: "0.12em", marginBottom: 14, textTransform: "uppercase", fontWeight: 600 }}>Skills</p>
           <h2 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "clamp(30px, 4.5vw, 52px)", fontWeight: 800, color: "#fff", margin: 0, letterSpacing: "-0.025em", lineHeight: 1.15 }}>My toolkit</h2>
         </motion.div>
@@ -501,7 +681,7 @@ function Skills() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))", gap: 16 }}>
           {SKILLS.map((skill, i) => (
             <motion.div key={skill.name}
-              variants={fadeUp(i * 0.04)} initial="hidden" animate={inView ? "visible" : "hidden"}
+              variants={fadeUp(i * 0.04)} initial="hidden" animate={reveal}
               whileHover={{ y: -4, borderColor: "rgba(99,102,241,0.4)" }}
               style={{
                 padding: "24px 16px", border: "1px solid rgba(255,255,255,0.07)",
@@ -528,17 +708,17 @@ function Skills() {
 
 function Experience() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const reveal = useReveal(ref);
   const [active, setActive] = useState(0);
 
   return (
     <section id="experience" ref={ref} style={{ padding: "130px 6vw", maxWidth: 1100, margin: "0 auto" }}>
-      <motion.div variants={fadeUp()} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ marginBottom: 56 }}>
+      <motion.div variants={fadeUp()} initial="hidden" animate={reveal} style={{ marginBottom: 56 }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "#818cf8", letterSpacing: "0.12em", marginBottom: 14, textTransform: "uppercase", fontWeight: 600 }}>Experience</p>
         <h2 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "clamp(30px, 4.5vw, 52px)", fontWeight: 800, color: "#fff", margin: 0, letterSpacing: "-0.025em", lineHeight: 1.15 }}>Where I've worked</h2>
       </motion.div>
 
-      <motion.div variants={fadeUp(0.15)} initial="hidden" animate={inView ? "visible" : "hidden"}
+      <motion.div variants={fadeUp(0.15)} initial="hidden" animate={reveal}
         style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: 0, border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, overflow: "hidden" }}>
 
         {/* Left — company tabs */}
@@ -556,7 +736,9 @@ function Experience() {
               onMouseLeave={e => { if (active !== i) e.currentTarget.style.background = "transparent"; }}
             >
               <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 600, color: active === i ? "#fff" : "rgba(255,255,255,0.5)", marginBottom: 4, transition: "color 0.2s" }}>
-                {exp.company.split("—")[0].split("-")[0].trim()}
+                {/* Split on the em dash only — splitting on "-" too turned
+                    "System-on-Chip Lab" into just "System". */}
+                {exp.company.split("—")[0].trim()}
               </div>
               <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: active === i ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.25)", transition: "color 0.2s" }}>
                 {exp.period}
@@ -611,40 +793,75 @@ function Experience() {
 // ── PROJECTS ──────────────────────────────────────────────────────────────────
 function Projects() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const reveal = useReveal(ref);
   return (
     <section id="projects" ref={ref} style={{ padding: "130px 6vw", maxWidth: 1100, margin: "0 auto" }}>
-      <motion.div variants={fadeUp()} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ marginBottom: 56 }}>
+      <motion.div variants={fadeUp()} initial="hidden" animate={reveal} style={{ marginBottom: 56 }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "#818cf8", letterSpacing: "0.12em", marginBottom: 14, textTransform: "uppercase", fontWeight: 600 }}>Projects</p>
         <h2 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "clamp(30px, 4.5vw, 52px)", fontWeight: 800, color: "#fff", margin: 0, letterSpacing: "-0.025em", lineHeight: 1.15 }}>Things I've built</h2>
       </motion.div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(460px, 1fr))", gap: 16 }}>
+      {/* 460px min never fit two columns inside the 1100px container, so six
+          cards stacked into one very long column. */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))", gap: 16 }}>
         {PROJECTS.map((proj, i) => (
-          <motion.div key={proj.title} variants={fadeUp(i * 0.08)} initial="hidden" animate={inView ? "visible" : "hidden"}
+          <motion.div key={proj.title} variants={fadeUp(i * 0.08)} initial="hidden" animate={reveal}
             whileHover={{ y: -4 }}
             style={{ padding: "30px", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, background: "rgba(255,255,255,0.025)", transition: "border-color 0.25s, box-shadow 0.25s", display: "flex", flexDirection: "column" }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(99,102,241,0.3)"; e.currentTarget.style.boxShadow = "0 0 40px rgba(99,102,241,0.08)"; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"; e.currentTarget.style.boxShadow = "none"; }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.25)", fontWeight: 500 }}>{proj.year}</span>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600, padding: "4px 10px", borderRadius: 6, background: proj.status === "Completed" ? "rgba(74,222,128,0.08)" : "rgba(251,191,36,0.08)", color: proj.status === "Completed" ? "#4ade80" : "#fbbf24", border: `1px solid ${proj.status === "Completed" ? "rgba(74,222,128,0.2)" : "rgba(251,191,36,0.2)"}` }}>{proj.status}</span>
+            <ProjectShot src={proj.shot} title={proj.title} org={proj.org}
+              locked={proj.proprietary} seed={i}
+              href={proj.proprietary ? undefined : proj.repo} />
+
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, gap: 8 }}>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.25)", fontWeight: 500 }}>
+                {proj.org ? `${proj.org} · ${proj.year}` : proj.year}
+              </span>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600, padding: "4px 10px", borderRadius: 6, background: STATUS_STYLE[proj.status].bg, color: STATUS_STYLE[proj.status].fg, border: `1px solid ${STATUS_STYLE[proj.status].bd}` }}>{proj.status}</span>
             </div>
-            <h3 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 10, letterSpacing: "-0.01em" }}>{proj.title}</h3>
+
+            <h3 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 4, letterSpacing: "-0.01em" }}>{proj.title}</h3>
+            {proj.blurb && (
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "#818cf8", fontWeight: 500, marginBottom: 10 }}>{proj.blurb}</p>
+            )}
             <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.43)", lineHeight: 1.75, marginBottom: 22, flex: 1 }}>{proj.desc}</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginBottom: 20 }}>
               {proj.tags.map(tag => (
                 <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, fontWeight: 500, color: "rgba(165,130,250,0.8)", padding: "3px 10px", border: "1px solid rgba(99,102,241,0.2)", borderRadius: 5 }}>{tag}</span>
               ))}
             </div>
-            <a href={proj.github} target="_blank" rel="noopener noreferrer"
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.4)", textDecoration: "none", transition: "color 0.2s", width: "fit-content" }}
-              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-              onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.4)"}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-              </svg>
-              View on GitHub
-            </a>
+
+            {proj.proprietary ? (
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.32)", width: "fit-content" }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <rect x="4" y="11" width="16" height="10" rx="2" />
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                </svg>
+                Proprietary — source not public
+              </div>
+            ) : (
+              <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
+                <a href={proj.repo} target="_blank" rel="noopener noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.4)", textDecoration: "none", transition: "color 0.2s" }}
+                  onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+                  onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.4)"}>
+                  <GitHubMark size={16} />
+                  {proj.repoPrivate ? "Repo (private)" : "View on GitHub"}
+                </a>
+                {proj.live && (
+                  <a href={proj.live} target="_blank" rel="noopener noreferrer"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 7, fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 600, color: "#818cf8", textDecoration: "none", transition: "color 0.2s" }}
+                    onMouseEnter={e => e.currentTarget.style.color = "#a5b4fc"}
+                    onMouseLeave={e => e.currentTarget.style.color = "#818cf8"}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <path d="M15 3h6v6" /><path d="M10 14 21 3" />
+                    </svg>
+                    Live site
+                  </a>
+                )}
+              </div>
+            )}
           </motion.div>
         ))}
       </div>
@@ -655,10 +872,10 @@ function Projects() {
 // ── CONTACT ───────────────────────────────────────────────────────────────────
 function Contact() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const reveal = useReveal(ref);
   return (
     <section id="contact" ref={ref} style={{ padding: "130px 6vw 160px", textAlign: "center" }}>
-      <motion.div variants={fadeUp()} initial="hidden" animate={inView ? "visible" : "hidden"} style={{ maxWidth: 580, margin: "0 auto" }}>
+      <motion.div variants={fadeUp()} initial="hidden" animate={reveal} style={{ maxWidth: 580, margin: "0 auto" }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "#818cf8", letterSpacing: "0.12em", marginBottom: 14, textTransform: "uppercase", fontWeight: 600 }}>Contact</p>
         <h2 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "clamp(30px, 4.5vw, 52px)", fontWeight: 800, color: "#fff", margin: "0 0 18px", letterSpacing: "-0.025em", lineHeight: 1.15 }}>Let's connect</h2>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "rgba(255,255,255,0.43)", lineHeight: 1.8, marginBottom: 44 }}>
@@ -671,7 +888,7 @@ function Contact() {
           Send me an email
         </motion.a>
         <div style={{ display: "flex", justifyContent: "center", gap: 36, marginTop: 56 }}>
-          {[{ label: "GitHub", href: "https://github.com/Srihari87" }, { label: "LinkedIn", href: "https://www.linkedin.com/in/srihari-srikanth/" }, { label: "Resume", href: "#" }].map(link => (
+          {[{ label: "GitHub", href: "https://github.com/Srihari87" }, { label: "LinkedIn", href: "https://www.linkedin.com/in/srihari-srikanth/" }, { label: "Resume", href: `${import.meta.env.BASE_URL}Srihari_Srikanth_Resume.pdf` }].map(link => (
             <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
               style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.28)", textDecoration: "none", fontWeight: 500, transition: "color 0.2s" }}
               onMouseEnter={e => e.target.style.color = "#fff"}
@@ -720,7 +937,12 @@ function LoadingScreen({ onDone }) {
 
 // ── APP ───────────────────────────────────────────────────────────────────────
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  // Skip the intro for anyone who's asked for reduced motion — a 1.4s gate in
+  // front of the content is exactly what that preference is about.
+  const [loading, setLoading] = useState(() =>
+    !(typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches)
+  );
   return (
     <>
       <style>{`
