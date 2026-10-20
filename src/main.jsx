@@ -14,9 +14,20 @@ if (umamiId) {
   document.head.appendChild(script)
 }
 
+// Skip my own visits: run localStorage.setItem('va-disable', '1') once in
+// this browser's console and Vercel Analytics stops counting it.
+const skipOwnVisits = (event) => {
+  try {
+    if (localStorage.getItem('va-disable')) return null
+  } catch {
+    // storage blocked: count the visit
+  }
+  return event
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
-    <Analytics />
+    <Analytics beforeSend={skipOwnVisits} />
   </StrictMode>,
 )
