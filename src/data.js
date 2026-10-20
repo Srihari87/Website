@@ -11,7 +11,6 @@ export const PROFILE = {
   email: "cs.srihari875@gmail.com",
   github: "https://github.com/Srihari87",
   linkedin: "https://www.linkedin.com/in/srihari-srikanth/",
-  resume: "/Srihari_Srikanth_Resume.pdf",
   summary:
     "Computer Engineering student at Purdue who likes the layer where software meets the machine: shells and syscalls, lock-free queues, data pipelines, GPU clusters. I've shipped production systems at Intellicent, a stealth ML startup and Caterpillar, and I do adversarial-ML research in Prof. Zahra Ghodsi's lab.",
   coursework: [

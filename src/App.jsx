@@ -117,7 +117,6 @@ function Contact() {
       <ul className="contact-links">
         <li><a href={PROFILE.github} target="_blank" rel="noopener noreferrer" data-umami-event="github">GitHub ↗</a></li>
         <li><a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" data-umami-event="linkedin">LinkedIn ↗</a></li>
-        <li><a href={PROFILE.resume} target="_blank" rel="noopener noreferrer" data-umami-event="resume">Résumé ↗</a></li>
       </ul>
     </div>
   );
@@ -150,8 +149,7 @@ export default function App() {
             I build <em>low-level</em> systems that hold up at scale.
           </h1>
           <p className="sub">
-            Computer Engineering + Math at Purdue, graduating {PROFILE.graduation}.{" "}
-            <a href={PROFILE.resume} target="_blank" rel="noopener noreferrer" data-umami-event="resume">Résumé ↗</a>
+            Computer Engineering + Math at Purdue, graduating {PROFILE.graduation}.
           </p>
         </header>
         {SECTIONS.map(({ id, title, body }) => (
