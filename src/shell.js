@@ -12,7 +12,6 @@ export const HOME = `/home/${PROFILE.handle}`;
 
 const dir = (children) => ({ type: "dir", children });
 const file = (content) => ({ type: "file", content });
-const link = (href, label) => ({ type: "link", href, label });
 
 function wrap(text, width = 72) {
   const out = [];
@@ -71,7 +70,7 @@ export function buildFs() {
     `github    ${PROFILE.github}`,
     `linkedin  ${PROFILE.linkedin}`,
     "",
-    "try: open resume.pdf   or   open github",
+    "try: open github   or   open email",
   ].join("\n");
 
   return dir({
@@ -80,7 +79,6 @@ export function buildFs() {
         "about.txt": file(about),
         "skills.txt": file(skills),
         "contact.txt": file(contact),
-        "resume.pdf": link(PROFILE.resume, "resume"),
         experience: dir(experience),
         projects: dir(projects),
       }),
@@ -158,7 +156,7 @@ const HELP = [
   "commands:",
   "  ls [dir]          list a directory          cat <file>     print a file",
   "  cd [dir]          change directory          pwd            where am I",
-  "  open <file|site>  open resume.pdf, github, linkedin, email",
+  "  open <site>       open github, linkedin, email",
   "  grep <text>       filter lines (use in a pipe)",
   "  head [-n N]  wc -l  sort  echo  whoami  date  uname  history  clear",
   "",
@@ -226,10 +224,9 @@ export function createShell() {
         github: PROFILE.github,
         linkedin: PROFILE.linkedin,
         email: `mailto:${PROFILE.email}`,
-        resume: PROFILE.resume,
       };
       const a = args[0];
-      if (!a) return { err: ["usage: open <resume.pdf|github|linkedin|email>"] };
+      if (!a) return { err: ["usage: open <github|linkedin|email>"] };
       const node = lookup(fs, resolvePath(state.cwd, a));
       const href = targets[a.replace(/\.pdf$/, "")] || (node?.type === "link" ? node.href : null);
       if (!href) return { err: [`open: ${a}: nothing to open`] };
