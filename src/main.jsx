@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
+import './index.css'
 import { Analytics } from '@vercel/analytics/react'
 
 // Skip my own visits: run localStorage.setItem('va-disable', '1') once in
