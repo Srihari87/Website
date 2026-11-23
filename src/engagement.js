@@ -117,7 +117,7 @@ export function useEngagementTracking() {
 
 const DISMISS_KEY = "hostBannerDismissed";
 export const MAILTO =
-  "mailto:srihari.cs@outlook.com?subject=" + encodeURIComponent("Google team matching: let's talk");
+  "mailto:cs.srihari875@gmail.com?subject=" + encodeURIComponent("Google team matching: let's talk");
 
 export function useHostBanner() {
   const [visible, setVisible] = useState(() => {
