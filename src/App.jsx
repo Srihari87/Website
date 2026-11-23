@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 
 // ── DATA ─────────────────────────────────────────────────────────────────────
-const NAV_LINKS = ["About", "Skills", "Experience", "Projects", "Contact"];
+const NAV_LINKS = ["About", "Experience", "Skills", "Projects", "Contact"];
 
 const SKILLS = [
   { name: "C / C++", icon: "devicon-cplusplus-plain colored" },
@@ -172,6 +172,13 @@ const EXPERIENCE = [
   },
 ];
 
+// Shown under the headline on the first page. Edit freely.
+const HOW_I_WORK = [
+  { title: "Start from the problem", text: "I learn how the system really works, down to the OS and the hardware, before picking a tool." },
+  { title: "Prove it with numbers", text: "I measure before and after, and back every change with tests and benchmarks." },
+  { title: "Own it end to end", text: "Design, build, deploy and monitor. I stay with it until it works in production." },
+];
+
 const STATUS_STYLE = {
   Completed:     { bg: "rgba(74,222,128,0.08)",  fg: "#4ade80", bd: "rgba(74,222,128,0.2)" },
   Live:          { bg: "rgba(56,189,248,0.08)",  fg: "#38bdf8", bd: "rgba(56,189,248,0.2)" },
@@ -319,24 +326,6 @@ function ProjectShot({ src, title, org, locked, seed = 0, href }) {
   }
 }
 
-function useTypewriter(words, speed = 75, pause = 2000) {
-  const [idx, setIdx] = useState(0);
-  const [char, setChar] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-  const [text, setText] = useState("");
-  useEffect(() => {
-    const word = words[idx];
-    let t;
-    if (!deleting && char < word.length) { t = setTimeout(() => { setText(word.slice(0, char + 1)); setChar(c => c + 1); }, speed); }
-    else if (!deleting && char === word.length) { t = setTimeout(() => setDeleting(true), pause); }
-    else if (deleting && char > 0) { t = setTimeout(() => { setText(word.slice(0, char - 1)); setChar(c => c - 1); }, speed / 2); }
-    else { setDeleting(false); setIdx(i => (i + 1) % words.length); }
-    return () => clearTimeout(t);
-  }, [char, deleting, idx, words, speed, pause]);
-  return text;
-}
-
-// ── GLOWING TRAIL CURSOR ─────────────────────────────────────────────────────
 function CursorTrail() {
   const canvasRef = useRef(null);
   const trail = useRef([]);
@@ -492,7 +481,8 @@ function ExplodingShards() {
       initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-      style={{ filter: "drop-shadow(0 0 40px rgba(99,102,241,0.25))" }}
+      // drawn at 460x460, scaled down by CSS on narrow screens
+      style={{ width: "min(460px, 100%)", height: "auto", display: "block", filter: "drop-shadow(0 0 40px rgba(99,102,241,0.25))" }}
     />
   );
 }
@@ -546,7 +536,7 @@ function Navbar() {
     <motion.nav initial={{ y: -60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 6vw", height: 68, background: scrolled ? "rgba(9,10,16,0.85)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none", transition: "all 0.4s ease" }}>
       <a href="#hero" style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 18, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em", textDecoration: "none" }}>Srihari Srikanth</a>
-      <div style={{ display: "flex", gap: 40 }}>
+      <div className="nav-links" style={{ display: "flex", gap: 40 }}>
         {NAV_LINKS.map(link => (
           <a key={link} href={`#${link.toLowerCase()}`}
             style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.45)", textDecoration: "none", transition: "color 0.2s" }}
@@ -561,7 +551,6 @@ function Navbar() {
 
 // ── HERO ──────────────────────────────────────────────────────────────────────
 function Hero() {
-  const typed = useTypewriter(["Software Engineer.", "Problem Solver.", "System Builder.", "CS Explorer."]);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 100]);
   const op = useTransform(scrollY, [0, 400], [1, 0]);
@@ -587,14 +576,26 @@ function Hero() {
           </motion.h1>
 
           <motion.div variants={fadeUp(0.32)} initial="hidden" animate="visible"
-            style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "clamp(18px, 2.4vw, 34px)", fontWeight: 700, color: "#818cf8", marginBottom: 24, letterSpacing: "-0.02em", minHeight: 44 }}>
-            {typed}<span style={{ borderRight: "2px solid #818cf8", marginLeft: 2 }}>&nbsp;</span>
+            style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "clamp(20px, 2.6vw, 36px)", fontWeight: 700, color: "#818cf8", marginBottom: 22, letterSpacing: "-0.02em" }}>
+            The software engineer you need.
           </motion.div>
 
           <motion.p variants={fadeUp(0.42)} initial="hidden" animate="visible"
-            style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "rgba(255,255,255,0.42)", lineHeight: 1.8, marginBottom: 36, maxWidth: 460 }}>
-            Computer Engineering student building software that matters — from low-level systems to modern web apps. Passionate about clean code, performance, and shipping things people actually use.
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "rgba(255,255,255,0.6)", lineHeight: 1.8, marginBottom: 26, maxWidth: 520 }}>
+            Computer Engineering at Purdue. I build systems end to end, from low-level code and data pipelines to cloud services and ML infrastructure, and I've shipped them at Intellicent, a stealth ML startup and Caterpillar.
           </motion.p>
+
+          <motion.div variants={fadeUp(0.47)} initial="hidden" animate="visible" style={{ marginBottom: 34, maxWidth: 520 }}>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "#818cf8", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600, marginBottom: 12 }}>How I work</p>
+            {HOW_I_WORK.map((item) => (
+              <div key={item.title} style={{ display: "flex", gap: 12, marginBottom: 10 }}>
+                <span style={{ color: "#6366f1", fontSize: 7, marginTop: 8, flexShrink: 0 }}>◆</span>
+                <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.7 }}>
+                  <span style={{ color: "#fff", fontWeight: 600 }}>{item.title}.</span> {item.text}
+                </p>
+              </div>
+            ))}
+          </motion.div>
 
           <motion.div variants={fadeUp(0.52)} initial="hidden" animate="visible" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <a href="#projects" style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, fontWeight: 600, padding: "13px 28px", background: "#6366f1", color: "#fff", borderRadius: 8, textDecoration: "none", transition: "all 0.2s" }}
@@ -610,7 +611,7 @@ function Hero() {
           </motion.div>
         </div>
 
-        <div style={{ flex: "0 0 auto" }}>
+        <div style={{ flex: "0 1 460px", maxWidth: "100%", margin: "0 auto" }}>
           <ExplodingShards />
         </div>
       </motion.div>
@@ -636,7 +637,7 @@ function About() {
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "#818cf8", letterSpacing: "0.12em", marginBottom: 14, textTransform: "uppercase", fontWeight: 600 }}>About Me</p>
         <h2 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "clamp(30px, 4.5vw, 52px)", fontWeight: 800, color: "#fff", margin: 0, lineHeight: 1.15, letterSpacing: "-0.025em" }}>Building from the ground up</h2>
       </motion.div>
-      <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 64, alignItems: "start" }}>
+      <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 64, alignItems: "start" }}>
         <motion.div variants={fadeUp(0.15)} initial="hidden" animate={reveal}>
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: "rgba(255,255,255,0.52)", lineHeight: 1.85, marginBottom: 22 }}>
             I'm a Computer Engineering student who loves understanding how systems work at every layer — from circuits and operating systems to scalable web architecture. That foundation shapes how I think about software.
@@ -709,7 +710,6 @@ function Skills() {
 function Experience() {
   const ref = useRef(null);
   const reveal = useReveal(ref);
-  const [active, setActive] = useState(0);
 
   return (
     <section id="experience" ref={ref} style={{ padding: "130px 6vw", maxWidth: 1100, margin: "0 auto" }}>
@@ -718,74 +718,51 @@ function Experience() {
         <h2 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "clamp(30px, 4.5vw, 52px)", fontWeight: 800, color: "#fff", margin: 0, letterSpacing: "-0.025em", lineHeight: 1.15 }}>Where I've worked</h2>
       </motion.div>
 
-      <motion.div variants={fadeUp(0.15)} initial="hidden" animate={reveal}
-        style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: 0, border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, overflow: "hidden" }}>
-
-        {/* Left — company tabs */}
-        <div style={{ borderRight: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)" }}>
-          {EXPERIENCE.map((exp, i) => (
-            <div key={exp.company} onClick={() => setActive(i)}
-              style={{
-                padding: "18px 24px", cursor: "pointer",
-                borderLeft: `2px solid ${active === i ? "#6366f1" : "transparent"}`,
-                background: active === i ? "rgba(99,102,241,0.08)" : "transparent",
-                borderBottom: i < EXPERIENCE.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
-                transition: "all 0.2s",
-              }}
-              onMouseEnter={e => { if (active !== i) e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
-              onMouseLeave={e => { if (active !== i) e.currentTarget.style.background = "transparent"; }}
-            >
-              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 600, color: active === i ? "#fff" : "rgba(255,255,255,0.5)", marginBottom: 4, transition: "color 0.2s" }}>
-                {/* Split on the em dash only — splitting on "-" too turned
-                    "System-on-Chip Lab" into just "System". */}
-                {exp.company.split("—")[0].trim()}
+      {/* Every role as its own block, one below another, so all of it can be
+          read without clicking through tabs. */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        {EXPERIENCE.map((exp, i) => {
+          const [company, note] = exp.company.split("—").map((part) => part.trim());
+          return (
+            <motion.article key={exp.company} variants={fadeUp(0.1 + i * 0.06)} initial="hidden" animate={reveal}
+              style={{ padding: "30px 34px", border: "1px solid rgba(255,255,255,0.07)", borderLeft: "3px solid #6366f1", borderRadius: 12, background: "rgba(255,255,255,0.025)", transition: "border-color 0.25s, box-shadow 0.25s" }}
+              onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 40px rgba(99,102,241,0.08)"; }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap", marginBottom: 18 }}>
+                <div>
+                  <h3 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 22, fontWeight: 700, color: "#fff", letterSpacing: "-0.01em", marginBottom: 6 }}>
+                    {exp.role}
+                  </h3>
+                  <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, fontWeight: 600, color: "#818cf8" }}>
+                    {company}{note && <span style={{ color: "rgba(255,255,255,0.4)", fontWeight: 500 }}> · {note}</span>}
+                  </div>
+                </div>
+                <div className="exp-when" style={{ textAlign: "right" }}>
+                  <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.75)", marginBottom: 4 }}>{exp.period}</div>
+                  <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>{exp.location}</div>
+                </div>
               </div>
-              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: active === i ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.25)", transition: "color 0.2s" }}>
-                {exp.period}
+
+              <ul style={{ listStyle: "none", padding: 0, marginBottom: 22, display: "flex", flexDirection: "column", gap: 10 }}>
+                {exp.bullets.map((b) => (
+                  <li key={b} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                    <span style={{ color: "#6366f1", marginTop: 8, flexShrink: 0, fontSize: 6 }}>◆</span>
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 15, color: "rgba(255,255,255,0.68)", lineHeight: 1.7 }}>{b}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
+                {exp.tags.map(tag => (
+                  <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, fontWeight: 500, color: "rgba(165,130,250,0.85)", padding: "3px 10px", border: "1px solid rgba(99,102,241,0.25)", borderRadius: 5 }}>
+                    {tag}
+                  </span>
+                ))}
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Right — details */}
-        <AnimatePresence mode="wait">
-          <motion.div key={active}
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -16 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            style={{ padding: "32px 36px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6, flexWrap: "wrap", gap: 8 }}>
-              <h3 style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 22, fontWeight: 700, color: "#fff", letterSpacing: "-0.01em" }}>
-                {EXPERIENCE[active].role}
-              </h3>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.3)", fontWeight: 500 }}>
-                {EXPERIENCE[active].location}
-              </span>
-            </div>
-            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: "#818cf8", fontWeight: 600, marginBottom: 24, letterSpacing: "0.01em" }}>
-              {EXPERIENCE[active].company} · {EXPERIENCE[active].period}
-            </div>
-
-            <ul style={{ listStyle: "none", padding: 0, marginBottom: 28, display: "flex", flexDirection: "column", gap: 12 }}>
-              {EXPERIENCE[active].bullets.map((b, i) => (
-                <li key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <span style={{ color: "#6366f1", marginTop: 6, flexShrink: 0, fontSize: 6 }}>◆</span>
-                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.75 }}>{b}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-              {EXPERIENCE[active].tags.map(tag => (
-                <span key={tag} style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, fontWeight: 500, color: "rgba(165,130,250,0.8)", padding: "3px 10px", border: "1px solid rgba(99,102,241,0.2)", borderRadius: 5 }}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
+            </motion.article>
+          );
+        })}
+      </div>
     </section>
   );
 }
@@ -802,7 +779,7 @@ function Projects() {
       </motion.div>
       {/* 460px min never fit two columns inside the 1100px container, so six
           cards stacked into one very long column. */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))", gap: 16 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(400px, 100%), 1fr))", gap: 16 }}>
         {PROJECTS.map((proj, i) => (
           <motion.div key={proj.title} variants={fadeUp(i * 0.08)} initial="hidden" animate={reveal}
             whileHover={{ y: -4 }}
@@ -955,6 +932,10 @@ export default function App() {
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #090a10; }
         ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.4); border-radius: 2px; }
+        /* phones: the five nav links don't fit beside the name, and the About
+           columns are too narrow side by side */
+        @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr !important; gap: 32px !important; } }
+        @media (max-width: 640px) { .nav-links { display: none !important; } .exp-when { text-align: left !important; } }
       `}</style>
 
       <AnimatePresence mode="wait">
@@ -969,8 +950,8 @@ export default function App() {
           <main style={{ position: "relative", zIndex: 1 }}>
             <Hero />
             <About />
-            <Skills />
             <Experience />
+            <Skills />
             <Projects />
             <Contact />
           </main>
