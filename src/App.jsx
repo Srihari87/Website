@@ -34,6 +34,16 @@ const SKILLS = [
 // Experience.
 const PROJECTS = [
   {
+    title: "tick2trade",
+    blurb: "Low-latency trading engine in C++",
+    desc: "A tick-to-trade engine in modern C++: market-data feed handler, lock-free queue, array-indexed limit-order-book matcher and a market-making strategy on one hot thread, with nanosecond instrumentation and a live browser dashboard. About 55 ns median and 420 ns p99 service-time latency at 4–7M events/s, with no heap allocation or locks on the hot path.",
+    tags: ["C++", "Lock-free", "Linux", "Low latency"],
+    year: "2026",
+    status: "Completed",
+    shot: "/shots/tick2trade.jpg",
+    repo: "https://github.com/Srihari87/high-frequency-trading",
+  },
+  {
     title: "Kairo",
     blurb: "Co-founded SwiftUI fitness app",
     desc: "Co-founded and built a SwiftUI fitness app on Supabase (PostgreSQL) and Firebase Auth, reaching 400+ active users. Cosine-similarity matching over HealthKit data with real-time sync lifted session length 40%, and a smart-contract settlement engine with biometric triggers cut settlement time 30%.",
@@ -47,14 +57,24 @@ const PROJECTS = [
   {
     title: "BoilerSwap",
     blurb: "Campus marketplace PWA",
-    desc: "Shipped a full-stack PWA marketplace for Purdue students with @purdue.edu OAuth and JWT sessions, scaling to real users. A route-optimization service recommends optimal meet locations, cutting user coordination by 30%.",
+    desc: "Shipped a full-stack PWA marketplace where verified Purdue students trade dining swipes and dollars, with @purdue.edu OAuth and JWT sessions, scaling to real users. A route-optimization service recommends optimal meet locations, cutting user coordination by 30%.",
     tags: ["Next.js", "TypeScript", "PostgreSQL", "Supabase"],
     year: "2025",
     status: "Live",
-    shot: null,
+    shot: "/shots/boilerswap.jpg",
     repo: "https://github.com/Srihari87/boilerswap",
     repoPrivate: true,
     live: "https://boilerswap.xyz",
+  },
+  {
+    title: "Distributed Transaction Engine",
+    blurb: "gRPC transaction service in C++",
+    desc: "A C++ gRPC service for money transfers: begin, commit, roll back and look up transactions. A transaction manager stores state in PostgreSQL, Redis caches idempotency keys and transaction status so retries are safe and lookups skip the database, and a multithreaded benchmark drives it. Ships as a multi-stage Docker build with Docker Compose.",
+    tags: ["C++", "gRPC", "PostgreSQL", "Redis", "Docker"],
+    year: "2026",
+    status: "Completed",
+    shot: null,
+    repo: "https://github.com/Srihari87/distributed-engine",
   },
 ];
 
@@ -153,7 +173,7 @@ function GitHubMark({ size = 16 }) {
 // keyed off the title — so proprietary work still gets a visual without me
 // inventing a fake screenshot of it. When a repo exists the whole visual is a
 // link, with a GitHub mark badged on it so it reads as pressable.
-function ProjectShot({ src, title, org, locked, seed = 0, href }) {
+function ProjectShot({ src, title, org, locked, seed = 0, href, label = "VIEW REPO" }) {
   const frame = {
     position: "relative",
     aspectRatio: "16 / 9",
@@ -169,7 +189,7 @@ function ProjectShot({ src, title, org, locked, seed = 0, href }) {
   if (href) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer"
-        aria-label={`${title} — open repository on GitHub`}
+        aria-label={`${title} — ${label.toLowerCase()}`}
         style={{ ...frame, display: "block", textDecoration: "none", cursor: "pointer", transition: "border-color 0.22s, transform 0.22s" }}
         onMouseEnter={e => {
           e.currentTarget.style.borderColor = "rgba(99,102,241,0.45)";
@@ -194,7 +214,7 @@ function ProjectShot({ src, title, org, locked, seed = 0, href }) {
         }}>
           <GitHubMark size={14} />
           <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: "0.03em" }}>
-            VIEW REPO
+            {label}
           </span>
         </span>
       </a>
@@ -726,7 +746,8 @@ function Projects() {
             onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"; e.currentTarget.style.boxShadow = "none"; }}>
             <ProjectShot src={proj.shot} title={proj.title} org={proj.org}
               locked={proj.proprietary} seed={i}
-              href={proj.proprietary ? undefined : proj.repo} />
+              href={proj.proprietary ? undefined : (proj.live || proj.repo)}
+              label={proj.live ? "VISIT SITE" : "VIEW REPO"} />
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, gap: 8 }}>
               <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: "rgba(255,255,255,0.25)", fontWeight: 500 }}>
