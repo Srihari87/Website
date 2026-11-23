@@ -29,14 +29,15 @@ const SKILLS = [
   { name: "Linux", icon: "devicon-linux-plain colored" },
 ];
 
-// Personal projects carry a repo link. Work built inside a role is marked
-// proprietary instead — the code isn't mine to publish.
+// Projects and experience follow the résumé (Srihari_SWEV.pdf). Personal
+// projects carry a repo or live link; the work done inside a job lives under
+// Experience.
 const PROJECTS = [
   {
     title: "Kairo",
-    blurb: "Step-duel iOS app",
-    desc: "Full-stack SwiftUI iOS app with 400+ signups. Firebase Auth, JWT and Firestore real-time sync, cosine-similarity matching over HealthKit biometrics, and a smart-contract betting engine settling 30% faster via HealthKit-verified triggers.",
-    tags: ["SwiftUI", "HealthKit", "Firebase", "Firestore", "Solidity"],
+    blurb: "Co-founded SwiftUI fitness app",
+    desc: "Co-founded and built a SwiftUI fitness app on Supabase (PostgreSQL) and Firebase Auth, reaching 400+ active users. Cosine-similarity matching over HealthKit data with real-time sync lifted session length 40%, and a smart-contract settlement engine with biometric triggers cut settlement time 30%.",
+    tags: ["SwiftUI", "Supabase", "Firebase", "HealthKit"],
     year: "2026",
     status: "In Progress",
     shot: "/shots/kairo-feed.png",
@@ -46,7 +47,7 @@ const PROJECTS = [
   {
     title: "BoilerSwap",
     blurb: "Campus marketplace PWA",
-    desc: "Full-stack PWA marketplace with 500+ users, @purdue.edu auth, OAuth and JWT sessions. Route optimization recommends optimal meeting locations, cutting coordination by 40%. Supabase Realtime chat with RLS-enforced encryption.",
+    desc: "Shipped a full-stack PWA marketplace for Purdue students with @purdue.edu OAuth and JWT sessions, scaling to real users. A route-optimization service recommends optimal meet locations, cutting user coordination by 30%.",
     tags: ["Next.js", "TypeScript", "PostgreSQL", "Supabase"],
     year: "2025",
     status: "Live",
@@ -55,46 +56,6 @@ const PROJECTS = [
     repoPrivate: true,
     live: "https://boilerswap.xyz",
   },
-  {
-    title: "Healthcare Data Platform",
-    org: "Intellicent",
-    blurb: "GCP pipeline at millions-of-records scale",
-    desc: "GCP pipeline with LLM extraction and GPU-accelerated parsing across millions of healthcare records. Go services and sub-100ms REST APIs on GKE, plus monitoring dashboards that surfaced data-quality issues and improved pricing model accuracy by 15%.",
-    tags: ["Go", "GCP", "Kubernetes", "LLM"],
-    year: "2026",
-    status: "In Progress",
-    proprietary: true,
-  },
-  {
-    title: "Moderation Red-Teaming Framework",
-    org: "Signal Found",
-    blurb: "RAG over FAISS + autonomous browser fleet",
-    desc: "Scalable RAG framework over a FAISS vector DB generating 15K+ test cases, uncovering 9 previously unknown failure cases in content-moderation systems. 200+ uniquely-fingerprinted sandboxed browsers on one VPS acting in tandem as a single agent.",
-    tags: ["Python", "FAISS", "RAG", "Automation"],
-    year: "2026",
-    status: "Completed",
-    proprietary: true,
-  },
-  {
-    title: "Unified Inventory Platform",
-    org: "Caterpillar",
-    blurb: "7 legacy apps → one cloud platform",
-    desc: "Re-architected 7 inventory applications into a unified cloud platform, cutting data retrieval time by 50%. Low-latency REST services for near real-time sync, plus an LLM assistant across all 7 legacy systems that cut manual lookup time by 70%.",
-    tags: ["Cloud", "REST APIs", "SQL", "LLM"],
-    year: "2025",
-    status: "Completed",
-    proprietary: true,
-  },
-  {
-    title: "Adversarial Robustness Benchmark",
-    org: "CERIAS Security Lab",
-    blurb: "Standardized robustness evaluation",
-    desc: "Scalable PyTorch infrastructure for standardized adversarial-robustness evaluation across model families. Implemented and benchmarked FGSM and PGD attacks with defenses, quantifying the accuracy–robustness tradeoff on distributed Spark/Kubernetes/Slurm pipelines.",
-    tags: ["PyTorch", "Spark", "Kubernetes", "Slurm"],
-    year: "2025",
-    status: "In Progress",
-    proprietary: true,
-  },
 ];
 
 const EXPERIENCE = [
@@ -102,14 +63,14 @@ const EXPERIENCE = [
     company: "Intellicent",
     role: "Software Engineer Intern",
     location: "Seattle, WA",
-    period: "May 2026 – Present",
+    period: "May 2026 – Aug 2026",
     bullets: [
-      "Built a GCP pipeline with LLM extraction and GPU-accelerated parsing for millions of healthcare records.",
-      "Developed Go services and sub-100ms REST APIs on Google Kubernetes Engine for healthcare batch pipelines.",
-      "Designed GCP monitoring dashboards that surfaced data quality issues, improving pricing model accuracy by 15%.",
-      "Led external data platform pipelines end-to-end, driving requirements in bi-weekly syncs with Boston Scientific leadership to align with pricing strategy.",
+      "Built a serverless AWS pipeline (Lambda, S3) for GPU-accelerated extraction and parsing of 1M+ records.",
+      "Engineered SQL data-engineering workflows on Databricks, transforming raw records at scale.",
+      "Built pipeline dashboards, boosting model accuracy by 15% and helping secure a $300K Boston Scientific deal.",
+      "Developed concurrent Go microservices and REST APIs for low-latency client lookups, optimizing P99 latency.",
     ],
-    tags: ["Go", "GCP", "Kubernetes", "LLM"],
+    tags: ["AWS Lambda", "S3", "Databricks", "SQL", "Go"],
   },
   {
     company: "Signal Found — Stealth Startup",
@@ -117,11 +78,11 @@ const EXPERIENCE = [
     location: "San Francisco, CA",
     period: "Jan 2026 – May 2026",
     bullets: [
-      "Built a scalable RAG framework over a FAISS vector DB, generating 15K+ test cases and uncovering 9 previously unknown failure cases in content moderation systems.",
-      "Engineered 200+ uniquely-fingerprinted, sandboxed browser instances on a single VPS, coordinated to operate in tandem as one autonomous agent.",
-      "Implemented anti-fingerprinting, per-browser sandboxing and session isolation, sustaining 95%+ evasion at scale.",
+      "Built a scalable Python test framework over a vector database, generating 15K+ automated tests and identifying 9 system failures.",
+      "Orchestrated 200+ concurrent sandboxed browsers on a Linux VPS with session and network isolation.",
+      "Configured TCP/IP networking and IS-IS routing across isolated environments, sustaining 95%+ evasion.",
     ],
-    tags: ["Python", "FAISS", "RAG", "Distributed Systems"],
+    tags: ["Python", "Vector DB", "Linux", "TCP/IP"],
   },
   {
     company: "Caterpillar",
@@ -129,46 +90,23 @@ const EXPERIENCE = [
     location: "West Lafayette, IN",
     period: "Aug 2025 – Jan 2026",
     bullets: [
-      "Re-architected 7 inventory applications into a unified cloud platform, cutting data retrieval time by 50%.",
-      "Built low-latency services and REST APIs enabling near real-time inventory sync across enterprise systems.",
-      "Built an LLM-powered assistant querying inventory status, defects and delivery schedules across 7 legacy systems, cutting manual lookup time by 70%.",
+      "Re-architected 7 inventory apps into a unified cloud-native platform, cutting data-retrieval time by 50%.",
+      "Built near real-time inventory sync using change data capture (CDC) and REST APIs, with under 2% sync error rate.",
+      "Built an LLM-powered assistant over legacy systems, cutting manual inventory-lookup time by 40–60%.",
     ],
-    tags: ["Cloud", "REST APIs", "SQL", "LLM"],
+    tags: ["Cloud-native", "CDC", "REST APIs", "LLMs"],
   },
   {
-    company: "CERIAS Security Lab — Prof. Zahra Ghodsi",
+    company: "TCLS Security Lab — Prof. Zahra Ghodsi",
     role: "Undergraduate Machine Learning Researcher",
     location: "West Lafayette, IN",
     period: "Aug 2025 – Present",
     bullets: [
-      "Built scalable PyTorch infrastructure for standardized evaluation of adversarial robustness across ML models.",
-      "Implemented and benchmarked adversarial attacks (FGSM, PGD) and defenses, quantifying the accuracy–robustness tradeoff across model families.",
-      "Engineered distributed ML pipelines with Spark, Kubernetes and Slurm, optimizing Linux I/O performance.",
+      "Built PyTorch/TensorFlow infrastructure for adversarial-robustness benchmarking on CUDA GPUs.",
+      "Benchmarked adversarial attacks (FGSM, PGD) and defenses, quantifying accuracy–robustness tradeoffs.",
+      "Built distributed CUDA pipelines with Spark, Kubernetes and Slurm; tuned NUMA affinity and block I/O.",
     ],
-    tags: ["PyTorch", "Spark", "Kubernetes", "Slurm"],
-  },
-  {
-    company: "Embedded Systems @ Purdue",
-    role: "Firmware Engineer & Finance Chair",
-    location: "West Lafayette, IN",
-    period: "May 2025 – Present",
-    bullets: [
-      "Developed embedded C/Python software for FPGA-based drone control systems with sub-20ms loop latency.",
-      "Integrated LiDAR and camera sensors using DMA pipelines, enabling real-time perception at 30 FPS.",
-      "Contributed to sensor-fusion and HW/SW co-design, improving flight and autonomous navigation reliability.",
-    ],
-    tags: ["C", "Python", "FPGA", "Embedded"],
-  },
-  {
-    company: "System-on-Chip Lab — Prof. M.C. Johnson",
-    role: "Undergraduate Researcher",
-    location: "West Lafayette, IN",
-    period: "Dec 2024 – May 2025",
-    bullets: [
-      "Designed and verified digital circuits (FSMs, memory copiers) and explored RISC-V CPU architecture.",
-      "Researched SRAM design stability using Verilog simulations, achieving 15% improvement in test designs.",
-    ],
-    tags: ["SystemVerilog", "RISC-V", "Digital Design"],
+    tags: ["PyTorch", "TensorFlow", "CUDA", "Spark", "Kubernetes", "Slurm"],
   },
 ];
 
