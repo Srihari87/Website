@@ -539,7 +539,7 @@ function Hero() {
 
           <motion.div variants={fadeUp(0.32)} initial="hidden" animate="visible"
             style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: "clamp(20px, 2.6vw, 36px)", fontWeight: 700, color: "#818cf8", marginBottom: 22, letterSpacing: "-0.02em" }}>
-            The software engineer you need.
+            I build systems that hold up at scale.
           </motion.div>
 
           <motion.p variants={fadeUp(0.42)} initial="hidden" animate="visible"
