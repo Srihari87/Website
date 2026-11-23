@@ -6,7 +6,7 @@ const INTRO = ["whoami", "cat about.txt | head -n 9", "ls projects"];
 const reducedMotion = () =>
   typeof window !== "undefined" && !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-export default function Terminal() {
+export default function Terminal({ intro = INTRO }) {
   const shell = useRef(null);
   if (!shell.current) shell.current = createShell();
   const [lines, setLines] = useState([
@@ -69,7 +69,7 @@ export default function Terminal() {
   useEffect(() => {
     if (!started.current) {
       started.current = true;
-      INTRO.forEach((c) => typeAndRun(c));
+      intro.forEach((c) => typeAndRun(c));
     }
     const onRun = (e) => typeAndRun(e.detail);
     window.addEventListener("shell:run", onRun);
