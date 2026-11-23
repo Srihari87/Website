@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import HostBanner from "./HostBanner.jsx";
 import { useEngagementTracking, useHostBanner } from "./engagement.js";
 
@@ -300,6 +300,7 @@ function CursorTrail() {
     const onMove = (e) => {
       trail.current.push({ x: e.clientX, y: e.clientY, age: 0 });
       if (trail.current.length > 65) trail.current.shift();
+      if (!raf) raf = requestAnimationFrame(draw);   // wake the loop up
     };
     window.addEventListener("mousemove", onMove);
     const draw = () => {
@@ -325,9 +326,10 @@ function CursorTrail() {
         ctx.beginPath(); ctx.arc(tip.x, tip.y, 22, 0, Math.PI * 2); ctx.fillStyle = glow; ctx.fill();
         ctx.beginPath(); ctx.arc(tip.x, tip.y, 3.5, 0, Math.PI * 2); ctx.fillStyle = "rgba(255,255,255,0.95)"; ctx.fill();
       }
-      raf = requestAnimationFrame(draw);
+      // stop redrawing once the trail has faded; the next mouse move restarts it
+      raf = trail.current.length > 0 ? requestAnimationFrame(draw) : 0;
     };
-    draw();
+    raf = requestAnimationFrame(draw);
     return () => { window.removeEventListener("mousemove", onMove); window.removeEventListener("resize", resize); cancelAnimationFrame(raf); };
   }, []);
 
@@ -840,55 +842,19 @@ function Contact() {
   );
 }
 
-// ── LOADING SCREEN ────────────────────────────────────────────────────────────
-function LoadingScreen({ onDone }) {
-  const [progress, setProgress] = useState(0);
-  useEffect(() => {
-    const start = performance.now(), duration = 1400;
-    let raf;
-    const tick = (now) => {
-      const p = Math.min((now - start) / duration, 1);
-      setProgress(Math.round((1 - Math.pow(1 - p, 3)) * 100));
-      if (p < 1) { raf = requestAnimationFrame(tick); } else { setTimeout(onDone, 300); }
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [onDone]);
-
-  return (
-    <motion.div key="loader" exit={{ opacity: 0, scale: 1.04 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      style={{ position: "fixed", inset: 0, zIndex: 999, background: "#090a10", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 }}>
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} style={{ textAlign: "center" }}>
-        <div style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 52, fontWeight: 800, color: "#fff", letterSpacing: "-0.04em", lineHeight: 1, marginBottom: 8 }}>SS</div>
-        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: "rgba(255,255,255,0.25)", letterSpacing: "0.2em", textTransform: "uppercase" }}>Portfolio</div>
-      </motion.div>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-        style={{ width: 180, display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-        <div style={{ width: "100%", height: 1.5, background: "rgba(255,255,255,0.08)", borderRadius: 99, overflow: "hidden" }}>
-          <div style={{ height: "100%", background: "linear-gradient(90deg, #6366f1, #a78bfa)", borderRadius: 99, width: `${progress}%`, transition: "width 0.05s linear" }} />
-        </div>
-        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: "rgba(255,255,255,0.2)", fontWeight: 500, letterSpacing: "0.06em" }}>{progress}%</span>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 // ── APP ───────────────────────────────────────────────────────────────────────
 export default function App() {
   useEngagementTracking();
   const [bannerVisible, dismissBanner] = useHostBanner();
   const [bannerHeight, setBannerHeight] = useState(0);
-  // Skip the intro for anyone who's asked for reduced motion — a 1.4s gate in
-  // front of the content is exactly what that preference is about.
-  const [loading, setLoading] = useState(() =>
-    !(typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches)
-  );
+  // No intro screen: it held every visitor for ~1.7 s, and a click near its end
+  // got no visible response until it finished (an INP of over a second in
+  // Chrome's Event Timing; Vercel flagged 245 ms on "body").
   return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap');
-        @import url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css');
+        @import url('https://cdn.jsdelivr.net/gh/devicons/devicon@v2.18.0/devicon.min.css');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { background: #090a10; color: #fff; overflow-x: hidden; cursor: none; }
@@ -902,11 +868,7 @@ export default function App() {
         @media (max-width: 640px) { .nav-links { display: none !important; } .exp-when { text-align: left !important; } }
       `}</style>
 
-      <AnimatePresence mode="wait">
-        {loading && <LoadingScreen key="loader" onDone={() => setLoading(false)} />}
-      </AnimatePresence>
-
-      {!loading && (
+      {(
         <motion.div key="site" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
           <CursorTrail />
           <Background />
