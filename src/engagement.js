@@ -115,21 +115,19 @@ export function useEngagementTracking() {
 
 // ── slim banner for team-matching hosts ──────────────────────────────────────
 
-const DISMISS_KEY = "hostBannerDismissed";
+// Earlier versions saved a dismissal in localStorage under this key, which hid
+// the banner for good. Clear it so those visitors see the banner again.
+const OLD_DISMISS_KEY = "hostBannerDismissed";
 export const MAILTO =
   "mailto:cs.srihari875@gmail.com?subject=" + encodeURIComponent("Google team matching: let's talk");
 
+// × hides the banner only until the page is reloaded; nothing is saved, so a
+// host who closes it by accident sees it again on the next visit.
 export function useHostBanner() {
   const [visible, setVisible] = useState(() => {
-    try {
-      return localStorage.getItem(DISMISS_KEY) !== "1";
-    } catch {
-      return true;
-    }
+    try { localStorage.removeItem(OLD_DISMISS_KEY); } catch { /* storage blocked */ }
+    return true;
   });
-  const dismiss = () => {
-    setVisible(false);
-    try { localStorage.setItem(DISMISS_KEY, "1"); } catch { /* private mode: just hide */ }
-  };
+  const dismiss = () => setVisible(false);
   return [visible, dismiss];
 }
