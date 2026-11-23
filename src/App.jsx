@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
+import HostBanner from "./HostBanner.jsx";
+import { useEngagementTracking, useHostBanner } from "./engagement.js";
 
 // ── DATA ─────────────────────────────────────────────────────────────────────
 const NAV_LINKS = ["About", "Experience", "Skills", "Projects", "Contact"];
@@ -482,7 +484,7 @@ function Background() {
 }
 
 // ── NAVBAR ────────────────────────────────────────────────────────────────────
-function Navbar() {
+function Navbar({ top = 0 }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
@@ -492,7 +494,7 @@ function Navbar() {
 
   return (
     <motion.nav initial={{ y: -60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 6vw", height: 68, background: scrolled ? "rgba(9,10,16,0.85)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none", transition: "all 0.4s ease" }}>
+      style={{ position: "fixed", top, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 6vw", height: 68, background: scrolled ? "rgba(9,10,16,0.85)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none", transition: "all 0.4s ease" }}>
       <a href="#hero" style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: 18, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em", textDecoration: "none" }}>Srihari Srikanth</a>
       <div className="nav-links" style={{ display: "flex", gap: 40 }}>
         {NAV_LINKS.map(link => (
@@ -873,6 +875,9 @@ function LoadingScreen({ onDone }) {
 
 // ── APP ───────────────────────────────────────────────────────────────────────
 export default function App() {
+  useEngagementTracking();
+  const [bannerVisible, dismissBanner] = useHostBanner();
+  const [bannerHeight, setBannerHeight] = useState(0);
   // Skip the intro for anyone who's asked for reduced motion — a 1.4s gate in
   // front of the content is exactly what that preference is about.
   const [loading, setLoading] = useState(() =>
@@ -905,7 +910,9 @@ export default function App() {
         <motion.div key="site" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
           <CursorTrail />
           <Background />
-          <Navbar />
+          {bannerVisible && <HostBanner onDismiss={dismissBanner} onHeight={setBannerHeight} />}
+          <Navbar top={bannerVisible ? bannerHeight : 0} />
+          {bannerVisible && <div aria-hidden="true" style={{ height: bannerHeight }} />}
           <main style={{ position: "relative", zIndex: 1 }}>
             <Hero />
             <About />
