@@ -25,7 +25,7 @@ export default function HostBanner({ onDismiss, onHeight }) {
         .host-banner a { font-size: 11.5px !important; padding: 4px 10px !important; }
       }`}</style>
       <span>
-        <strong style={{ fontWeight: 700 }}>In Google team matching.</strong> If you're a host, trust me: hop on a call.
+        <strong style={{ fontWeight: 700 }}>In Google team matching.</strong> If you're a host, trust me, let's hop on a call <span aria-hidden="true">🙂</span>
       </span>
       <a href={MAILTO} data-umami-event="banner-call"
         style={{ fontWeight: 600, fontSize: 12.5, color: "#4f46e5", background: "#fff", padding: "4px 12px", borderRadius: 999, textDecoration: "none", whiteSpace: "nowrap" }}>
